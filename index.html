@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" href="/favicon.ico">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,700&family=Paytone+One&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="src/assets/style.css">
+        <title>Login</title>
+
+        <script src="https://accounts.google.com/gsi/client" async></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/jwt-decode@4.0.0/build/esm/index.min.js"></script>
+
+        <script>
+          import { jwtDecode } from "jwt-decode";
+          //const token = "eyJ0eXAiO.../// jwt token";
+          //const decoded = jwtDecode(token);
+          //console.log(decoded);
+
+          function handleCredentialResponse(response) {
+            const data = jwt_decode(response.credential)
+            console.log(data)
+          }
+          
+          window.onload = function () {
+            google.accounts.id.initialize({
+              client_id: "544352170453-7ntquv9vp4589l72sfqt0rr6rbjf4je9.apps.googleusercontent.com",
+              callback: handleCredentialResponse
+            });
+
+            google.accounts.id.renderButton(
+              document.getElementById("buttonDiv"), {
+                theme:"filled_black",
+                size: "medium",
+                type:"standard",
+                shape:"pill",
+                text:"signin",
+                locale:"pt-BR",
+                logo_alignment: "left",
+                width:"40"
+              }
+            );
+
+            google.accounts.id.prompt(); // also display the One Tap dialog
+          }
+        </script>
+    </head>
+
+<body>
+    <header class="cabecalho">
+        <h1>Faça login com Google</h1>
+    </header>
+
+    <div class="botao">
+        <div id="buttonDiv">
+        </div>
+    </div>
+
+    <a href="logado.html">Voltar a tela</a>
+</body>
+
+</html>
